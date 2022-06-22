@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 export const client = new ApolloClient({
-  uri: process.env.GRAPH_CMS,
+  uri: import.meta.env.VITE_GRAPH_CMS,
   cache: new InMemoryCache(),
 });
