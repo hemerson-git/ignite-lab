@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { gql, useQuery } from "@apollo/client";
+import { useEffect } from "react";
+import { client } from "./lib/apollo";
+
+// Components
+import { Event } from "./pages/Event";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="App">
-      <h1>Hello, World!</h1>
+      <Event />
     </div>
   );
 }
