@@ -7,11 +7,6 @@ import classnames from "classnames";
 import { Logo } from "../../components/Logo";
 import { useCreateSubscriberMutation } from "../../graphql/generated";
 
-interface IFormInput {
-  name: string;
-  email: string;
-}
-
 export function Home() {
   const {
     register,
@@ -70,7 +65,7 @@ export function Home() {
               value={name}
               onChange={(event) => setName(event.target.value)}
               className={classnames("bg-gray-900 rounded px-5 h-14", {
-                "border border-red-400 shadow-sm shadow-red-400 focus-visible:outline-red-400":
+                "border border-red-400 focus-visible:outline-red-400":
                   errors.name,
               })}
               placeholder="Seu nome completo"
@@ -117,7 +112,7 @@ export function Home() {
         </div>
       </div>
 
-      <img src="/src/assets/code-mockup.png" className="mt-10" />
+      <img src="/code-mockup.png" className="mt-10" />
     </div>
   );
 }
