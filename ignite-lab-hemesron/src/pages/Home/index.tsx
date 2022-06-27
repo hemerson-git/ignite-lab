@@ -1,35 +1,31 @@
-import { gql, useMutation } from "@apollo/client";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { WarningCircle } from "phosphor-react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import classnames from "classnames";
 
 import { Logo } from "../../components/Logo";
+import { useCreateSubscriberMutation } from "../../graphql/generated";
 
-const CREATE_SUBSCRIBER_MUTATION = gql`
-  mutation CreateSubscriber($name: String!, $email: String!) {
-    createSubscriber(data: { name: $name, email: $email }) {
-      id
-    }
-  }
-`;
+interface IFormInput {
+  name: string;
+  email: string;
+}
 
 export function Home() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
   const navigate = useNavigate();
 
-  const [createSubscriber, { loading }] = useMutation(
-    CREATE_SUBSCRIBER_MUTATION
-  );
+  const [createSubscriber, { loading }] = useCreateSubscriberMutation();
 
-  async function handleSubscribe(event: FormEvent) {
-    event.preventDefault();
-
-    if (!name.trim() || !email.trim()) {
-      console.error("PREENCHA ESSES CAMPOS!!!!");
-      return;
-    }
-
+  async function handleSubscribe() {
     await createSubscriber({
       variables: {
         name,
@@ -65,24 +61,46 @@ export function Home() {
           </strong>
 
           <form
-            onSubmit={handleSubscribe}
+            onSubmit={handleSubmit(handleSubscribe)}
             className="flex flex-col gap-2 w-full"
           >
             <input
-              className="bg-gray-900 rounded px-5 h-14"
+              {...register("name", { required: true })}
               type="text"
-              placeholder="Seu nome completo"
               value={name}
               onChange={(event) => setName(event.target.value)}
+              className={classnames("bg-gray-900 rounded px-5 h-14", {
+                "border border-red-400 shadow-sm shadow-red-400 focus-visible:outline-red-400":
+                  errors.name,
+              })}
+              placeholder="Seu nome completo"
             />
 
+            {errors.name && (
+              <span className="text-sm text-red-400 px-2 flex gap-2 items-center">
+                <WarningCircle size={20} />
+                This field is required
+              </span>
+            )}
+
             <input
-              className="bg-gray-900 rounded px-5 h-14"
+              {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
+              className={classnames("bg-gray-900 rounded px-5 h-14", {
+                "border border-red-400 shadow-sm shadow-red-400": errors.name,
+                "border-gray-400": !errors.email,
+              })}
               type="email"
               placeholder="Digite seu e-mail"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
+
+            {errors.email && (
+              <span className="text-sm text-red-400 px-2 flex gap-2 items-center">
+                <WarningCircle size={20} />
+                This field is required
+              </span>
+            )}
 
             <button
               disabled={loading}
