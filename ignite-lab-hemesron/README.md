@@ -4,8 +4,11 @@
 
 ## Preview 👀
 
+<div>
 <img src="./.github/preview.gif" height="270px" alt="Background Image with a mocked code"/>
+<span width="">_____</span>
 <img src="./.github/mobile.gif" height="270px" alt="Background Image with a mocked code mobile version"/>
+</div>
 
 #### Working Web App 🕸️
 [Go to Application ➡️](https://ignite-lab-pearl.vercel.app/)
