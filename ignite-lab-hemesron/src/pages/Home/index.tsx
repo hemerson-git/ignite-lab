@@ -33,9 +33,16 @@ export function Home() {
 
   return (
     <div className="min-h-screen bg-blur bg-cover bg-no-repeat flex flex-col items-center">
-      <div className="w-full max-w-[1100px] flex items-center justify-between mt-20 mx-auto">
+      <div
+        className="
+        w-full flex flex-col 
+        items-center text-center justify-between 
+        mt-20 mx-auto md:flex-row md:text-left md:max-w-[1100px]"
+      >
         <div className="max-w-[640px]">
-          <Logo />
+          <div className="mx-auto w-max md:mx-0">
+            <Logo />
+          </div>
 
           <h1 className="mt-8 text-[2.5rem] leading-tight">
             Construa uma{" "}
@@ -43,7 +50,7 @@ export function Home() {
             zero, com <strong className="text-blue-500">React</strong>
           </h1>
 
-          <p className="mt-4 text-gray-200 leading-relaxed">
+          <p className="mt-6 mb-12 px-5 text-gray-200 leading-relaxed md:mt-4 md:mb-0 md:px-0">
             Em apenas uma semana você vai dominar na prática uma das tecnologias
             mais utilizadas e com alta demanda para acessar as melhores
             oportunidades do mercado.
@@ -112,7 +119,7 @@ export function Home() {
         </div>
       </div>
 
-      <img src="/code-mockup.png" className="mt-10" />
+      <img src="/code-mockup.png" className="mt-10 w-max" />
     </div>
   );
 }
