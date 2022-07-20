@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Heading, HStack, IconButton, Text, VStack } from "native-base";
+import {
+  FlatList,
+  Heading,
+  HStack,
+  IconButton,
+  Text,
+  TextField,
+  VStack,
+} from "native-base";
 import { SignOut } from "phosphor-react-native";
 import { useTheme } from "native-base";
 
@@ -11,6 +19,15 @@ export function Home() {
   const [selectedStatus, setSelectedStatus] = useState<"open" | "closed">(
     "open"
   );
+
+  const orders = [
+    {
+      id: "123",
+      patrimony: "123456",
+      when: "18/05/2022",
+      status: "open",
+    },
+  ];
 
   return (
     <VStack flex={1} pb={6} bg="gray.700">
@@ -56,6 +73,12 @@ export function Home() {
           />
         </HStack>
       </VStack>
+
+      <FlatList
+        data={orders}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <Text>{item.patrimony}</Text>}
+      />
     </VStack>
   );
 }
