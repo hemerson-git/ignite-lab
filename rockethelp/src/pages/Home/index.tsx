@@ -1,15 +1,63 @@
 import { useState } from "react";
-import { Heading, HStack, IconButton, Text, VStack } from "native-base";
-import { SignOut } from "phosphor-react-native";
+import {
+  Center,
+  FlatList,
+  Heading,
+  HStack,
+  IconButton,
+  Text,
+  VStack,
+} from "native-base";
+import { ChatTeardropText, SignOut } from "phosphor-react-native";
 import { useTheme } from "native-base";
+
+// Components
 
 import Logo from "../../assets/logo_secondary.svg";
 import { Filter } from "../../components/Filter";
+import { Order, OrderProps } from "../../components/Order";
+import { Button } from "../../components/Button";
 
 export function Home() {
   const { colors } = useTheme();
+  const [orders, setOrders] = useState<OrderProps[]>([
+    {
+      id: "123",
+      patrimony: "123456",
+      when: "18/05/2022",
+      status: "open",
+    },
+
+    {
+      id: "124",
+      patrimony: "123456",
+      when: "18/05/2022",
+      status: "closed",
+    },
+
+    {
+      id: "125",
+      patrimony: "123456",
+      when: "18/05/2022",
+      status: "open",
+    },
+
+    {
+      id: "126",
+      patrimony: "123456",
+      when: "18/05/2022",
+      status: "open",
+    },
+
+    {
+      id: "127",
+      patrimony: "123456",
+      when: "18/05/2022",
+      status: "open",
+    },
+  ]);
   const [selectedStatus, setSelectedStatus] = useState<"open" | "closed">(
-    "open"
+    "closed"
   );
 
   return (
@@ -55,6 +103,28 @@ export function Home() {
             isActive={selectedStatus === "closed"}
           />
         </HStack>
+
+        <FlatList
+          data={orders}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <Order data={item} />}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingBottom: 100,
+          }}
+          ListEmptyComponent={() => (
+            <Center>
+              <ChatTeardropText size={40} color={colors.gray[300]} />
+              <Text color="gray.300" fontSize="xl" mt={6} textAlign="center">
+                Você ainda não possui {"\n"}
+                solicitações{" "}
+                {selectedStatus === "open" ? "em abert" : "finalizados"}
+              </Text>
+            </Center>
+          )}
+        />
+
+        <Button title="nova solicitação" />
       </VStack>
     </VStack>
   );

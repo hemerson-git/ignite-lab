@@ -11,6 +11,7 @@ import { THEME } from "./src/styles/theme";
 
 import { Loading } from "./src/components/Loading";
 import { Home } from "./src/pages/Home";
+import { Register } from "./src/pages/Register";
 
 function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
@@ -22,7 +23,7 @@ function App() {
         backgroundColor="transparent"
         translucent
       />
-      {fontsLoaded ? <Home /> : <Loading />}
+      {fontsLoaded ? <Register /> : <Loading />}
     </NativeBaseProvider>
   );
 }
