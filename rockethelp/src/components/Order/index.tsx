@@ -33,7 +33,7 @@ export function Order({ data, ...rest }: IOrder) {
     data.status === "open" ? colors.secondary[700] : colors.green[300];
 
   return (
-    <Pressable>
+    <Pressable {...rest}>
       <HStack
         bg="gray.600"
         mb={4}

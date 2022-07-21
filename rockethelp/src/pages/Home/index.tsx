@@ -10,6 +10,7 @@ import {
 } from "native-base";
 import { ChatTeardropText, SignOut } from "phosphor-react-native";
 import { useTheme } from "native-base";
+import { useNavigation } from "@react-navigation/native";
 
 // Components
 
@@ -59,6 +60,15 @@ export function Home() {
   const [selectedStatus, setSelectedStatus] = useState<"open" | "closed">(
     "closed"
   );
+  const navigation = useNavigation();
+
+  function handleCreateNewOrder() {
+    navigation.navigate("new");
+  }
+
+  function handleOpenDetails(orderId: string) {
+    navigation.navigate("details", { orderId });
+  }
 
   return (
     <VStack flex={1} pb={6} bg="gray.700">
@@ -107,7 +117,9 @@ export function Home() {
         <FlatList
           data={orders}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Order data={item} />}
+          renderItem={({ item }) => (
+            <Order data={item} onPress={() => handleOpenDetails(item.id)} />
+          )}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             paddingBottom: 100,
@@ -124,7 +136,7 @@ export function Home() {
           )}
         />
 
-        <Button title="nova solicitação" />
+        <Button title="nova solicitação" onPress={handleCreateNewOrder} />
       </VStack>
     </VStack>
   );
