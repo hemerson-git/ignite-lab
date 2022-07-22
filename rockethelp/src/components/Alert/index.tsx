@@ -15,10 +15,24 @@ interface AlertProps extends IAlertProps {
   isOpen: boolean;
   title: string;
   dismiss: () => void;
+  status?: "info" | "warning" | "success" | "error" | (string & {});
 }
 
-export function Alert({ isOpen, title, dismiss, ...rest }: AlertProps) {
+export function Alert({
+  isOpen,
+  title,
+  dismiss,
+  status = "error",
+  ...rest
+}: AlertProps) {
   const { colors } = useTheme();
+
+  const textColor = {
+    info: colors.primary[500],
+    warning: colors.yellow[700],
+    success: colors.green[500],
+    error: colors.secondary[900],
+  };
 
   return (
     <Modal
@@ -33,8 +47,8 @@ export function Alert({ isOpen, title, dismiss, ...rest }: AlertProps) {
       <NativeAlert
         w="90%"
         variant="left-accent"
-        colorScheme="secondary.100"
-        status="error"
+        colorScheme="info"
+        status={status}
         opacity={0.7}
         {...rest}
       >
@@ -43,7 +57,7 @@ export function Alert({ isOpen, title, dismiss, ...rest }: AlertProps) {
             <NativeAlert.Icon size="xl" />
 
             <Text
-              color="secondary.900"
+              color={textColor[status]}
               ml={4}
               fontSize="md"
               flex={1}
@@ -53,7 +67,7 @@ export function Alert({ isOpen, title, dismiss, ...rest }: AlertProps) {
             </Text>
 
             <IconButton
-              icon={<Icon as={<X color={colors.secondary[900]} />} />}
+              icon={<Icon as={<X color={textColor[status]} />} />}
               onPress={dismiss}
             />
           </HStack>
