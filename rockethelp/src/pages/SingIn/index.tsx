@@ -15,17 +15,50 @@ export function SignIn() {
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   function handleSignIn() {
     const trimedEmail = email.trim();
 
     if (!trimedEmail || !password) {
+      setAlertMessage(`Você deve informar \n Seu E-mail e senha`);
       setShowAlert(true);
       return;
     }
 
     setIsLoading(true);
+
+    auth()
+      .signInWithEmailAndPassword(trimedEmail, password)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+
+        if (error.code === "auth/user-not-found") {
+          setAlertMessage(`Verifique o E-mail e senha informados`);
+          setShowAlert(true);
+          return;
+        }
+
+        if (error.code === "auth/wrong-password") {
+          setAlertMessage(`Verifique o E-mail e senha informados`);
+          setShowAlert(true);
+          return;
+        }
+
+        if (error.code === "auth/invalid-email") {
+          setAlertMessage(`Verifique o E-mail informado`);
+          setShowAlert(true);
+          return;
+        }
+
+        setAlertMessage(`Ocorreu um erro ao tentar fazer login`);
+        setShowAlert(true);
+        console.log(error);
+      });
   }
 
   function handleCloseAlert() {
@@ -36,7 +69,7 @@ export function SignIn() {
     <VStack flex={1} alignItems="center" bg="gray.600" px={8} pt={24}>
       <Alert
         isOpen={showAlert}
-        title={`Você deve informar \n Seu E-mail e senha`}
+        title={alertMessage}
         dismiss={handleCloseAlert}
       />
 
