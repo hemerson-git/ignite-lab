@@ -5,8 +5,11 @@ import { SignIn } from "../pages/SingIn";
 
 export function Routes() {
   return (
-    <NavigationContainer>
-      <AppRoutes />
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <AppRoutes />
+    //   {/* <AppRoutes /> */}
+    // </NavigationContainer>
+
+    <SignIn />
   );
 }
