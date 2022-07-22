@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { HStack, ScrollView, Text, useTheme, VStack } from "native-base";
+import { Box, HStack, ScrollView, Text, useTheme, VStack } from "native-base";
 import {
   CircleWavyCheck,
-  Clipboard,
+  ClipboardText,
   DesktopTower,
   Hourglass,
 } from "phosphor-react-native";
@@ -123,7 +123,9 @@ export function Details() {
         status={alertModalStatus}
       />
 
-      <Header title="Solicitação" />
+      <Box px={6} bg="gray.600">
+        <Header title="Solicitação" />
+      </Box>
 
       {isLoading ? (
         <Loading />
@@ -155,14 +157,13 @@ export function Details() {
               title="Equipamento"
               icon={DesktopTower}
               description={`Patrimônio ${order.patrimony}`}
-              footer={order.when}
             />
 
             <CardDetails
               title="Descrição do Problema"
-              icon={Clipboard}
+              icon={ClipboardText}
               description={`${order.description}`}
-              footer={order.when}
+              footer={`Registrado em ${order.when}`}
             />
 
             <CardDetails
