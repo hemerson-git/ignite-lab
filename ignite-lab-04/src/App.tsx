@@ -1,7 +1,10 @@
 import { Button } from "./components/Button";
 import { Heading } from "./components/Heading";
 import { Text } from "./components/Text";
+import { TextInput } from "./components/TextInput";
 import "./styles/global.css";
+import { EnvelopeSimple } from "phosphor-react";
+import { Checkbox } from "./components/Checkbox";
 
 export function App() {
   return (
@@ -12,7 +15,18 @@ export function App() {
     >
       <Heading>Heading</Heading>
       <Text>Hello 2</Text>
+
       <Button>Create Account</Button>
+
+      <TextInput.Root>
+        <TextInput.Icon>
+          <EnvelopeSimple />
+        </TextInput.Icon>
+
+        <TextInput.Input placeholder="Type your e-mail address" />
+      </TextInput.Root>
+
+      <Checkbox />
     </div>
   );
 }
