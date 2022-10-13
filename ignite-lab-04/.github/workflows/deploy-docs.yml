@@ -1,7 +1,7 @@
 name: Deploy Storybook
 
-on: 
-  push: 
+on:
+  push:
     branches:
       - ignite-lab-04
 
@@ -11,12 +11,12 @@ jobs:
 
     steps:
       - name: Checkout
-      uses: actions/checkout@v3
+        uses: actions/checkout@v3
 
-      -name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
 
       - name: Install dependencies
         run: yarn ci
