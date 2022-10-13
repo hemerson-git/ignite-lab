@@ -27,6 +27,7 @@ export function App() {
       </TextInput.Root>
 
       <Checkbox />
+      <Checkbox />
     </div>
   );
 }
