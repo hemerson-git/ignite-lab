@@ -3,7 +3,7 @@ name: Deploy Storybook
 on:
   push:
     branches:
-      - ignite-lab-04
+      - master
 
 jobs:
   build-and-deploy:
